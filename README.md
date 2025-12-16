@@ -28,13 +28,13 @@ The easiest way to add PocketFlow-Zig to your project is using `zig fetch --save
 
 ```bash
 # Fetch from a GitHub release tarball (recommended for stability)
-zig fetch --save https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
+zig fetch --save https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
 
 # Or fetch directly from a git repository
-zig fetch --save git+https://github.com/bkataru/PocketFlow-Zig.git
+zig fetch --save git+https://github.com/The-Pocket/PocketFlow-Zig.git
 
 # You can also specify a custom name for the dependency
-zig fetch --save=pocketflow https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
+zig fetch --save=pocketflow https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
 ```
 
 This automatically:
@@ -47,7 +47,7 @@ After running `zig fetch --save`, your `build.zig.zon` will contain something li
 ```zig
 .dependencies = .{
     .pocketflow = .{
-        .url = "https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz",
+        .url = "https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz",
         .hash = "1220...", // Auto-generated hash
     },
 },
@@ -103,8 +103,8 @@ If you prefer to manually configure your dependencies, add the following to your
     .minimum_zig_version = "0.15.0",
     .dependencies = .{
         .pocketflow = .{
-            .url = "https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz",
-            // Get the hash by running: zig fetch https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
+            .url = "https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz",
+            // Get the hash by running: zig fetch https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
             .hash = "1220...",
         },
     },
@@ -119,7 +119,7 @@ If you prefer to manually configure your dependencies, add the following to your
 To get the correct hash, run:
 
 ```bash
-zig fetch https://github.com/bkataru/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
+zig fetch https://github.com/The-Pocket/PocketFlow-Zig/archive/refs/tags/v0.2.0.tar.gz
 ```
 
 This prints the hash without modifying any files.
@@ -131,7 +131,7 @@ For development or to track the latest changes:
 ```zig
 .dependencies = .{
     .pocketflow = .{
-        .url = "git+https://github.com/bkataru/PocketFlow-Zig.git",
+        .url = "git+https://github.com/The-Pocket/PocketFlow-Zig.git",
         .hash = "1220...",
     },
 },
@@ -140,7 +140,7 @@ For development or to track the latest changes:
 Or with `zig fetch`:
 
 ```bash
-zig fetch --save git+https://github.com/bkataru/PocketFlow-Zig.git
+zig fetch --save git+https://github.com/The-Pocket/PocketFlow-Zig.git
 ```
 
 ### Method 4: Local Path Dependency
@@ -159,7 +159,7 @@ For local development or when vendoring:
 
 ```bash
 # Clone the repository
-git clone https://github.com/bkataru/PocketFlow-Zig.git
+git clone https://github.com/The-Pocket/PocketFlow-Zig.git
 cd PocketFlow-Zig
 
 # Build the library
