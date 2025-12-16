@@ -1,12 +1,14 @@
 .{
     .fingerprint = 0x6623cd56cb3aca0c,
     .name = .pocketflow,
-    .version = "0.1.0",
+    .version = "0.2.0",
     .minimum_zig_version = "0.15.0",
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
+        "examples",
         "README.md",
+        "LICENSE",
     },
 }

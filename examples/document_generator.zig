@@ -1,9 +1,9 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 
-const ollama = @import("src/ollama.zig");
+const ollama = @import("ollama");
 const Ollama = ollama.Ollama;
-const pocketflow = @import("src/pocketflow.zig");
+const pocketflow = @import("pocketflow");
 const Node = pocketflow.Node;
 const BaseNode = pocketflow.BaseNode;
 const Context = pocketflow.Context;
@@ -339,8 +339,8 @@ pub fn main() !void {
     const assemble_node_wrapper = Node{ .self = assemble_node, .vtable = &AssembleDocumentNode.VTABLE };
 
     // --- Create the Flow ---
-    outline_node.base.next("default", content_node_wrapper);
-    content_node.base.next("default", assemble_node_wrapper);
+    try outline_node.base.next("default", content_node_wrapper);
+    try content_node.base.next("default", assemble_node_wrapper);
 
     var flow = Flow.init(allocator, outline_node_wrapper);
 

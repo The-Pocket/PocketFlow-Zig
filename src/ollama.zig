@@ -40,8 +40,8 @@ pub const Ollama = struct {
         role: []const u8,
     };
 
-    /// Request options for text generation
-    pub const GenerateOptions = struct {
+    /// Common options for LLM requests (generate and chat)
+    pub const LLMOptions = struct {
         model: []const u8 = "granite4:tiny-h",
         temperature: ?f32 = null,
         top_p: ?f32 = null,
@@ -52,17 +52,9 @@ pub const Ollama = struct {
         stream: bool = false,
     };
 
-    /// Chat options
-    pub const ChatOptions = struct {
-        model: []const u8 = "granite4:tiny-h",
-        temperature: ?f32 = null,
-        top_p: ?f32 = null,
-        top_k: ?i32 = null,
-        num_predict: ?i32 = null,
-        stop: ?[]const []const u8 = null,
-        seed: ?i32 = null,
-        stream: bool = false,
-    };
+    /// Alias for backwards compatibility
+    pub const GenerateOptions = LLMOptions;
+    pub const ChatOptions = LLMOptions;
 
     /// Response from text generation
     pub const GenerateResponse = struct {
@@ -416,7 +408,7 @@ pub const Ollama = struct {
 // TESTS
 // ============================================================================
 
-test "OllamaClient - init and deinit" {
+test "Ollama - init and deinit" {
     var gpa = std.testing.allocator_instance;
     var client = try Ollama.init(gpa.allocator(), null);
     defer client.deinit();
@@ -443,8 +435,8 @@ test "Ollama - Message structure" {
     try testing.expectEqualStrings("Hello, Ollama!", msg.content);
 }
 
-test "Ollama - GenerateOptions defaults" {
-    const opts = Ollama.GenerateOptions{};
+test "Ollama - LLMOptions defaults" {
+    const opts = Ollama.LLMOptions{};
 
     try testing.expectEqualStrings("granite4:tiny-h", opts.model);
     try testing.expect(opts.temperature == null);
@@ -452,8 +444,8 @@ test "Ollama - GenerateOptions defaults" {
     try testing.expect(opts.stream == false);
 }
 
-test "Ollama - GenerateOptions custom" {
-    const opts = Ollama.GenerateOptions{
+test "Ollama - LLMOptions custom" {
+    const opts = Ollama.LLMOptions{
         .model = "granite4:tiny-h",
         .temperature = 0.7,
         .seed = 123,
@@ -468,17 +460,18 @@ test "Ollama - GenerateOptions custom" {
     try testing.expect(opts.num_predict.? == 100);
 }
 
-test "OllamaClient - ChatOptions defaults" {
-    const opts = Ollama.ChatOptions{};
+test "Ollama - backwards compatible aliases" {
+    // Verify that GenerateOptions and ChatOptions are aliases for LLMOptions
+    const gen_opts = Ollama.GenerateOptions{};
+    const chat_opts = Ollama.ChatOptions{};
+    const llm_opts = Ollama.LLMOptions{};
 
-    try testing.expectEqualStrings("granite4:tiny-h", opts.model);
-    try testing.expect(opts.temperature == null);
-    try testing.expect(opts.seed == null);
-    try testing.expect(opts.stream == false);
+    try testing.expectEqualStrings(gen_opts.model, llm_opts.model);
+    try testing.expectEqualStrings(chat_opts.model, llm_opts.model);
 }
 
 // Integration tests - require a running Ollama server
-test "Ollama -listModels integration" {
+test "Ollama - listModels integration" {
     var gpa = std.testing.allocator_instance;
     var client = try Ollama.init(gpa.allocator(), null);
     defer client.deinit();
